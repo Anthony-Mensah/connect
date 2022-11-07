@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="">
+  @{{user.username}}
+  | {{num_of_posts}} posts
+  | {{num_of_likes}} likes
+  | {{followers}} followers
+  | {{following}} following
+
+{% if request.user != user %}
+  <form class="" action="{% url 'follow' user %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="followed" value="{{user}}">
+    <input type="hidden" name="follower" value="{{request.user}}">
+    <input type="submit" name="" value="{{submit_text}}">
+  </form>
+{% endif %}
+</div>
+
+<hr>
+{% for post in posts %}
+{% if post.image.url != None %}
+<img style='width:200; height:200;' src="{{post.image.url}}" alt="image">
+<a href="{{post.image.url}}" download>Download</a>
+{% endif %}
+<p>{{post.caption}}</p>
+
+{% endfor %}
+{% endblock content %}

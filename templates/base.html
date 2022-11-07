@@ -1,0 +1,25 @@
+<h3>
+
+
+{% if user.is_authenticated %}
+<a href="{% url 'home' %}" id='top' >Home</a>
+<a href="{% url 'profile' request.user %}">View Profile</a>
+<a href="{% url 'settings' %}">settings</a>
+<a href="{% url 'logout' %}">logout</a>
+<a href="{% url 'upload_post' %}">Upload Post</a>
+<a href="{% url 'favorites' %}">Favorites</a>
+
+<form class="" action="{% url 'search_result' %}" method="GET">
+  <input type="text" name="q" placeholder="Search account" value="">
+  <input type="submit" name="" value="Search">
+</form>
+{% else %}
+<a href="{% url 'signup' %}">signup</a>
+<a href="{% url 'login' %}">login</a>
+{% endif %}
+{% block content %}
+
+{% endblock %}
+
+<a href="#">Back to top</a>
+</h3>

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if page == 'signup' %}
+<h2>signup</h2>
+
+<!-- MESSAGES -->
+{% if messages %}
+{% for message in messages %}
+<p>{{message}}</p>
+{% endfor %}
+{% endif %}
+
+<!-- USER CREATION FORM -->
+<form class="" action="" method="POST">
+  {% csrf_token %}
+  <label for="username">Username</label>
+  <input type="text" name="username" placeholder="username" value="">
+
+  <label for="email">Email</label>
+  <input type="email" name="email" placeholder="email" value="">
+
+  <label for="password">Password</label>
+  <input type="password" name="password" placeholder="Password" value="">
+
+  <label for="password1">Re-enter Password</label>
+  <input type="password" name="password1" placeholder="Password" value="">
+
+  <input type="submit" name="" value="Create Account">
+</form>
+
+Have An Account? <a href="{% url 'login' %}">Log in</a>
+{% elif page == 'login' %}
+<h2>log in page</h2>
+
+<!-- MESSAGES -->
+{% if messages %}
+{% for message in messages %}
+<p>{{message}}</p>
+{% endfor %}
+{% endif %}
+
+<!-- USER CREATION FORM -->
+<form class="" action="" method="POST">
+  {% csrf_token %}
+  <label for="username">Username</label>
+  <input type="text" name="username" placeholder="username" value="">
+
+  <label for="password">Password</label>
+  <input type="password" name="password" placeholder="Password" value="">
+
+  <input type="submit" name="" value="Log In">
+
+  Don't have an Account? <a href="{% url 'signup' %}">Sign Up</a>
+</form>
+
+{% endif %}
+
+{% endblock %}

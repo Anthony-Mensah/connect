@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for i in searched_users %}
+<div class="">
+  <a href="{% url 'profile' i.username %}">{{i.username}} </a>
+</div>
+{% endfor %}
+<hr>
+
+<h1>REALTED POSTS</h1>
+{% for post in new_final_posts %}
+<div class="">
+  <a href="{% url 'profile' post.user %}">@{{post.user.username}}</a>
+  {% if post.image.url != None %}
+  <img style='width:200; height:200;' src="{{post.image.url}}" alt="image">
+  {% endif %}
+  <p>{{post.caption}}</p>
+  {{post.created}}
+</div>
+
+{% endfor %}
+{% endblock content %}

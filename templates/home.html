@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Welcome {{request.user.username}}</h2>
+
+<h2>Users you can follow</h2>
+{% for i in final_suggested_accounts %}
+<a href="{% url 'profile' i.username %}">{{i.username}}</a>
+<form class="" action="{% url 'follow' i.username %}" method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="followed" value="{{i.username}}">
+  <input type="hidden" name="follower" value="{{request.user}}">
+  <input type="submit" name="" value="follow">
+</form>
+
+
+{% endfor %}
+<hr>
+
+{% if all_posts %}
+{% for post in all_posts %}
+
+{% if post.image.url != None %}
+<a href="{% url 'profile' post.user %}">@{{post.user.username}}</a>
+<img style='width:200; height:200;' src="{{post.image.url}}" alt="image">
+<a href="{{post.image.url}}" download>Download</a>
+{% elif post.caption != '' %}
+
+<a href="{% url 'profile' post.user %}">@{{post.user.username}}</a>
+<p>{{post.caption}}</p>
+{% endif %}
+
+<p>{{post.likes.all.count}} like(s)</p>
+
+<!-- SOME COMMENTS -->
+<p>Comments by {{post.comments.first.user.username}} and {{post.comments.all.count}} others. Note:to be fixed </p>
+<p>{{post.comments.first.body}}</p>
+
+<a href="{% url 'view_post' post.id %}"><p>View all {{post.comments.all.count}} comments</p></a>
+
+<!-- LIKE FORM -->
+<form class="" action="" method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="post_id" value="{{post.id}}">
+  <input type="submit" name="" value="like">
+</form>
+
+
+<p>{{post.created|timesince}}</p>
+<a href="{% url 'view_post' post.id %}">View Post</a>
+{% if post.favorite == True %}
+<a href="{% url 'remove_favorite' post.id %}">Remove from favorites</a>
+{% else %}
+<a href="{% url 'add_favorite' post.id %}">Add to favorites</a>
+{% endif %}
+{% if request.user == post.user %}
+<a href="{% url 'delete_post' post.id %}">Delete Post</a>
+{% endif %}
+
+<hr>
+
+
+{% endfor %}
+{% else %}
+<h3>Follow accounts to see their posts OR followed accounts have no post</h3>
+{% endif %}
+
+{% endblock content %}

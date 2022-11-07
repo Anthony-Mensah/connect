@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Welcome {{request.user.username}}</h2>
+
+<h2>Favorites Posts</h2>
+{% for post in all_posts %}
+{% if post.image.url != None %}
+<img style='width:200; height:200;' src="{{post.image.url}}" alt="image">
+<a href="{{post.image.url}}" download>Download</a>
+{% endif %}
+<p>{{post.caption}}</p>
+<a href="{% url 'profile' post.user %}">@{{post.user.username}}</a>
+<p>{{post.likes.all.count}} like(s)</p>
+
+<!-- SOME COMMENTS -->
+<p>Comments by {{post.comments.first.user.username}} and {{post.comments.all.count}} others. Note:to be fixed </p>
+<p>{{post.comments.first.body}}</p>
+
+<a href="{% url 'view_post' post.id %}"><p>View all {{post.comments.all.count}} comments</p></a>
+
+<!-- LIKE FORM -->
+<form class="" action="" method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="post_id" value="{{post.id}}">
+  <input type="submit" name="" value="like">
+</form>
+
+
+<p>{{post.created|timesince}}</p>
+<!-- <a href="{% url 'view_post' post.id %}">View Post</a>
+{% if post.favorite == True %}
+<a href="{% url 'remove_favorite' post.id %}">Remove from favorites</a>
+{% else %}
+<a href="{% url 'add_favorite' post.id %}">Add to favorites</a>
+{% endif %}
+{% if request.user == post.user %}
+<a href="{% url 'delete_post' post.id %}">Delete Post</a>
+{% endif %}
+<hr> -->
+{% endfor %}
+
+{% endblock content %}

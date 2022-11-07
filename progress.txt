@@ -1,0 +1,12 @@
+Change the search system to search for users not posts
+
+
+FEATURES
+Favorites/Bookmarks (this needs to be worked on)
+
+
+Comment system
+likes
+search system
+Follow system(To be done)
+Suggested Users(To be done)

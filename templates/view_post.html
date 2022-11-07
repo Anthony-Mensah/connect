@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="">
+  <br>
+  {% if viewed_post.image.url != None %}
+  <img style='width:200; height:200;' src="{{viewed_post.image.url}}" alt="image">
+  <a href="{{viewed_post.image.url}}" download>Download</a>
+  {% endif %}
+  <p>{{viewed_post.caption}}</p>
+  <p>{{viewed_post.created|timesince}}</p>
+<!-- COMMENTS -->
+<hr>
+{% for comment in post_comments %}
+<p><span>{{comment.user.username}} - </span>{{comment.body}} | {{comment.created|timesince}} </p>
+{% endfor %}
+  <!-- ADDING COMMENTS -->
+  <form class="" action="" method="POST">
+    {% csrf_token %}
+    <input type="text" name="body" value="">
+    <input type="submit" name="" value="Add Comment">
+  </form>
+
+<!-- DELETE POST -->
+  {% if request.user == viewed_post.user %}
+  <a href="{% url 'delete_post' viewed_post.id %}">Delete Post</a>
+  {% endif %}
+</div>
+
+
+{% endblock content %}

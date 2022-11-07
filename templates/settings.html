@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Welcome {{request.user.username}}</h2>
+
+<!-- MESSAGES -->
+{% if messages %}
+{% for message in messages %}
+<p>{{message}}</p>
+{% endfor %}
+{% endif %}
+
+<div class="settings">
+  <div class="">
+    <img style='width:100; height:100;' src="{{user_profile.avatar.url}}" alt="">
+
+    <p>Username - {{user.username}}</p>
+    <p>Name - {{user_profile.name}}</p>
+    <p>Name - {{user.email}}</p>
+    <p>Bio - {{user_profile.bio}}</p>
+    <p>Location - {{user_profile.location}}</p>
+  </div>
+
+  <hr>
+  <!-- PROFILE FORM -->
+  <div class="">
+    <form class="" action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="avatar">Profile Picture</label>
+      <input type="file" name="avatar" value="">
+
+      <label for="username">Username</label>
+      <input type="text" name="username" value="{{user.username}}">
+
+      <label for="name">Name</label>
+      <input type="text" name="name" value="{{user_profile.name}}">
+
+      <label for="bio">Bio</label>
+      <input type="text" name="bio" value="{{user_profile.bio}}">
+
+      <label for="email">Email</label>
+      <input type="email" name="email" value="{{user.email}}">
+
+      <label for="location">Location</label>
+      <input type="text" name="location" value="{{user_profile.location}}">
+
+      <input type="submit" name="" value="Save Changes">
+    </form>
+
+    <br>
+
+    <!-- CHANGE PASSWORD
+      <a href="">change password</a>
+  -->
+
+  </div>
+</div>
+
+{% endblock %}
